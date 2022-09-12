@@ -81,17 +81,39 @@ class BacktesterManager(QtWidgets.QWidget):
             self.interval_combo.addItem(interval.value)
 
         end_dt: datetime = datetime.now()
-        start_dt: datetime = end_dt - timedelta(days=3 * 365)
+        end_dt.replace(hour=0, minute=0, second=0)
+        end_dt = end_dt + timedelta(days=1)
 
-        self.start_date_edit: QtWidgets.QDateEdit = QtWidgets.QDateEdit(
-            QtCore.QDate(
-                start_dt.year,
-                start_dt.month,
-                start_dt.day
-            )
+        # start_dt: datetime = end_dt - timedelta(days=3 * 365)
+        start_dt: datetime = end_dt - timedelta(days=1)
+
+
+        # self.start_date_edit: QtWidgets.QDateEdit = QtWidgets.QDateEdit(
+        #     QtCore.QDate(
+        #         start_dt.year,
+        #         start_dt.month,
+        #         start_dt.day
+        #     )
+        # )
+        # self.end_date_edit: QtWidgets.QDateEdit = QtWidgets.QDateEdit(
+        #     QtCore.QDate.currentDate()
+        # )
+
+        self.start_date_edit: QtWidgets.QDateTimeEdit = QtWidgets.QDateTimeEdit(
+            QtCore.QDateTime(start_dt.year,
+                             start_dt.month,
+                             start_dt.day,
+                             0,
+                             0,
+                             0)
         )
-        self.end_date_edit: QtWidgets.QDateEdit = QtWidgets.QDateEdit(
-            QtCore.QDate.currentDate()
+        self.end_date_edit: QtWidgets.QDateTimeEdit = QtWidgets.QDateTimeEdit(
+            QtCore.QDateTime(end_dt.year,
+                             end_dt.month,
+                             end_dt.day,
+                             0,
+                             0,
+                             0)
         )
 
         self.rate_line: QtWidgets.QLineEdit = QtWidgets.QLineEdit("0.000025")
